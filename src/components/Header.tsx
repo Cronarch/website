@@ -1,177 +1,158 @@
 import { Link } from '@tanstack/react-router'
-
+import { Logo } from '@/components/logo'
+import { ChevronRight, Menu, X } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 import { useState } from 'react'
-import {
-  ChevronDown,
-  ChevronRight,
-  Home,
-  Menu,
-  Network,
-  SquareFunction,
-  StickyNote,
-  X,
-} from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'motion/react'
+import { useMedia } from '@/hooks/use-media'
 
-export default function Header() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [groupedExpanded, setGroupedExpanded] = useState<
-    Record<string, boolean>
-  >({})
+const menuItems = [
+    { name: 'Our Team', href: '/#team' },
+]
 
-  return (
-    <>
-      <header className="p-4 flex items-center bg-gray-800 text-white shadow-lg">
-        <button
-          onClick={() => setIsOpen(true)}
-          className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
-          aria-label="Open menu"
-        >
-          <Menu size={24} />
-        </button>
-        <h1 className="ml-4 text-xl font-semibold">
-          <Link to="/">
-            <img
-              src="/tanstack-word-logo-white.svg"
-              alt="TanStack Logo"
-              className="h-10"
-            />
-          </Link>
-        </h1>
-      </header>
+export const HeroHeader = () => {
+    const [menuState, setMenuState] = useState(false)
+    const [isScrolled, setIsScrolled] = useState(false)
+    const { scrollY } = useScroll()
+    const isLarge = useMedia('(min-width: 64rem)')
 
-      <aside
-        className={`fixed top-0 left-0 h-full w-80 bg-gray-900 text-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
-      >
-        <div className="flex items-center justify-between p-4 border-b border-gray-700">
-          <h2 className="text-xl font-bold">Navigation</h2>
-          <button
-            onClick={() => setIsOpen(false)}
-            className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
-            aria-label="Close menu"
-          >
-            <X size={24} />
-          </button>
-        </div>
+    useMotionValueEvent(scrollY, 'change', (latest) => {
+        setIsScrolled(latest > 75)
+    })
 
-        <nav className="flex-1 p-4 overflow-y-auto">
-          <Link
-            to="/"
-            onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-            activeProps={{
-              className:
-                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
+    return (
+        <header>
+            <nav
+                data-state={menuState && 'active'}
+                className="fixed z-20 w-full">
+                <div className="mx-auto max-w-7xl px-6">
+                    <div className="relative flex flex-wrap items-center justify-between gap-6 py-6 lg:gap-0">
+                        <div className={cn('flex justify-between gap-6 duration-200 max-lg:w-full', isScrolled && 'lg:opacity-0 lg:blur-[4px]')}>
+                            <div className="hidden size-fit lg:block">
+                                <NavItems />
+                            </div>
+                            <Link
+                                to="/"
+                                aria-label="home"
+                                className="flex items-center space-x-2 lg:hidden">
+                                <Logo className={cn(isScrolled ? 'h-6' : 'h-10')} />
+                            </Link>
+
+                            <button
+                                onClick={() => setMenuState(!menuState)}
+                                aria-label={menuState == true ? 'Close Menu' : 'Open Menu'}
+                                className="relative z-20 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden">
+                                <Menu className="in-data-[state=active]:rotate-180 in-data-[state=active]:scale-0 in-data-[state=active]:opacity-0 m-auto size-6 duration-200" />
+                                <X className="in-data-[state=active]:rotate-0 in-data-[state=active]:scale-100 in-data-[state=active]:opacity-100 absolute inset-0 m-auto size-6 -rotate-180 scale-0 opacity-0 duration-200" />
+                            </button>
+                        </div>
+
+                        {isLarge && <FloatingNavPill isScrolled={isScrolled} />}
+
+                        <div className="bg-card ring-border in-data-[state=active]:block lg:in-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl p-6 shadow-2xl shadow-zinc-300/20 ring-1 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:bg-transparent lg:p-0 lg:shadow-none lg:ring-transparent dark:shadow-none dark:lg:bg-transparent">
+                            <div className="lg:hidden">
+                                <NavItems />
+                            </div>
+                            <div className={cn('flex w-full flex-col space-y-3 duration-200 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit', isScrolled && 'lg:opacity-0 lg:blur-[4px]')}>
+                                <Button
+                                    asChild
+                                    variant="ghost"
+                                    size="sm">
+                                    <Link to="/">
+                                        <span>Login</span>
+                                    </Link>
+                                </Button>
+                                <Button
+                                    asChild
+                                    size="sm">
+                                    <Link to="/">
+                                        <span>Sign Up</span>
+                                    </Link>
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    )
+}
+
+const NavItems = () => {
+    return (
+        <ul className="flex gap-1 max-lg:flex-col">
+            {menuItems.map((item, index) => {
+                const isHashLink = item.href.includes('#')
+                const hash = isHashLink ? item.href.split('#')[1] : null
+                return (
+                    <li key={index}>
+                        <Button
+                            asChild
+                            variant="ghost"
+                            size="sm"
+                            className="w-full max-lg:h-12 max-lg:justify-start max-lg:text-lg">
+                            {isHashLink && hash ? (
+                                <a href={`#${hash}`} className="text-base">
+                                    <span>{item.name}</span>
+                                </a>
+                            ) : (
+                                <Link to="/" className="text-base">
+                                    <span>{item.name}</span>
+                                </Link>
+                            )}
+                        </Button>
+                    </li>
+                )
+            })}
+        </ul>
+    )
+}
+
+const FloatingNavPill = ({ isScrolled }: { isScrolled: boolean }) => {
+    return (
+        <motion.div
+            animate={{
+                gap: isScrolled ? '1rem' : '0rem',
+                background: isScrolled ? 'var(--color-card)' : 'transparent',
             }}
-          >
-            <Home size={20} />
-            <span className="font-medium">Home</span>
-          </Link>
-
-          {/* Demo Links Start */}
-
-          <Link
-            to="/demo/start/server-funcs"
-            onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-            activeProps={{
-              className:
-                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-            }}
-          >
-            <SquareFunction size={20} />
-            <span className="font-medium">Start - Server Functions</span>
-          </Link>
-
-          <Link
-            to="/demo/start/api-request"
-            onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-            activeProps={{
-              className:
-                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-            }}
-          >
-            <Network size={20} />
-            <span className="font-medium">Start - API Request</span>
-          </Link>
-
-          <div className="flex flex-row justify-between">
+            transition={{ duration: 0.5, type: 'spring', bounce: 0.1 }}
+            className={cn('absolute inset-0 z-50 m-auto flex size-fit h-11 items-center rounded-lg transition-colors duration-500', isScrolled && 'ring-border shadow-foreground/6.5 shadow-lg ring-1 backdrop-blur')}>
             <Link
-              to="/demo/start/ssr"
-              onClick={() => setIsOpen(false)}
-              className="flex-1 flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-              activeProps={{
-                className:
-                  'flex-1 flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-              }}
-            >
-              <StickyNote size={20} />
-              <span className="font-medium">Start - SSR Demos</span>
+                to="/"
+                aria-label="home"
+                className="px-3.5">
+                <Logo className={cn(isScrolled ? 'h-6' : 'h-10')} />
             </Link>
-            <button
-              className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
-              onClick={() =>
-                setGroupedExpanded((prev) => ({
-                  ...prev,
-                  StartSSRDemo: !prev.StartSSRDemo,
-                }))
-              }
-            >
-              {groupedExpanded.StartSSRDemo ? (
-                <ChevronDown size={20} />
-              ) : (
-                <ChevronRight size={20} />
-              )}
-            </button>
-          </div>
-          {groupedExpanded.StartSSRDemo && (
-            <div className="flex flex-col ml-4">
-              <Link
-                to="/demo/start/ssr/spa-mode"
-                onClick={() => setIsOpen(false)}
-                className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-                activeProps={{
-                  className:
-                    'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-                }}
-              >
-                <StickyNote size={20} />
-                <span className="font-medium">SPA Mode</span>
-              </Link>
-
-              <Link
-                to="/demo/start/ssr/full-ssr"
-                onClick={() => setIsOpen(false)}
-                className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-                activeProps={{
-                  className:
-                    'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-                }}
-              >
-                <StickyNote size={20} />
-                <span className="font-medium">Full SSR</span>
-              </Link>
-
-              <Link
-                to="/demo/start/ssr/data-only"
-                onClick={() => setIsOpen(false)}
-                className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-                activeProps={{
-                  className:
-                    'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-                }}
-              >
-                <StickyNote size={20} />
-                <span className="font-medium">Data Only</span>
-              </Link>
-            </div>
-          )}
-
-          {/* Demo Links End */}
-        </nav>
-      </aside>
-    </>
-  )
+            <AnimatePresence initial={false}>
+                {isScrolled && (
+                    <motion.div
+                        initial={{ opacity: 0, x: -156, scale: 0.8, filter: 'blur(4px)', width: 0 }}
+                        animate={{
+                            opacity: 1,
+                            x: 0,
+                            scale: 1,
+                            filter: 'blur(0px)',
+                            width: 'auto',
+                        }}
+                        exit={{ opacity: 0, x: -156, scale: 0.8, filter: 'blur(4px)', width: 0 }}
+                        transition={{ duration: 0.5, type: 'spring', bounce: 0.1 }}
+                        className="flex origin-left items-center overflow-hidden rounded-full">
+                        <>
+                            <NavItems />
+                            <Button
+                                asChild
+                                size="sm"
+                                className="mx-2 gap-1 pr-1">
+                                <Link to="/" hash="link">
+                                    <span>Get started</span>
+                                    <ChevronRight className="opacity-50" />
+                                </Link>
+                            </Button>
+                        </>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </motion.div>
+    )
 }
