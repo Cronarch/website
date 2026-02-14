@@ -1,0 +1,12 @@
+[phases.setup]
+# This specific archive version is known to provide a stable 
+# and compatible version of Bun for Xeon/Old Intel chips.
+nixpkgsArchive = 'f252bba4ef74a12a17f8f4ae604d39e30457a251'
+
+[phases.install]
+# This fixes the "Undefined variable" warning you saw in your logs
+paths = ['/app/node_modules/.bin']
+
+[variables]
+# Tells Bun to use the baseline (non-AVX2) engine
+BUN_VARIANT = "baseline"
