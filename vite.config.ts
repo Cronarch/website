@@ -26,6 +26,21 @@ const config = defineConfig({
 			preset: "bun",
 		}),
 	],
+	build: {
+		// Ensure consistent asset naming between client and SSR builds
+		cssCodeSplit: false,
+		rollupOptions: {
+			output: {
+				// Use fixed CSS filename without hash to prevent client/SSR mismatch
+				assetFileNames: (assetInfo) => {
+					if (assetInfo.name?.endsWith(".css")) {
+						return "assets/styles.[ext]";
+					}
+					return "assets/[name]-[hash].[ext]";
+				},
+			},
+		},
+	},
 });
 
 export default config;
