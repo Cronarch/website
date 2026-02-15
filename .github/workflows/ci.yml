@@ -62,6 +62,10 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Trigger Portainer redeploy
-        if: success() && secrets.PORTAINER_WEBHOOK_URL != ''
+        if: success()
+        env:
+          WEBHOOK_URL: ${{ secrets.PORTAINER_WEBHOOK_URL }}
         run: |
-          curl -X POST "${{ secrets.PORTAINER_WEBHOOK_URL }}"
+          if [ -n "$WEBHOOK_URL" ]; then
+            curl -sf -X POST "$WEBHOOK_URL"
+          fi
