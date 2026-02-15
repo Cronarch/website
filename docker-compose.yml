@@ -8,4 +8,6 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3000
+      # So the server accepts connections from the proxy (not only localhost)
+      - HOST=0.0.0.0
     restart: unless-stopped
