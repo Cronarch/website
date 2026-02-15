@@ -3,6 +3,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        # Pass a new value on each deploy to bust Docker cache and ensure fresh build
+        CACHEBUST: ${CACHEBUST:-1}
     ports:
       - "3000:3000"
     environment:
