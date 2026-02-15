@@ -1,11 +1,8 @@
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        # Pass a new value on each deploy to bust Docker cache and ensure fresh build
-        CACHEBUST: ${CACHEBUST:-1}
+    # Image built by GitHub Actions and pushed to GHCR
+    # Set IMAGE in Portainer env vars, e.g. ghcr.io/yourusername/your-repo:latest
+    image: ${IMAGE:-ghcr.io/owner/repo:latest}
     ports:
       - "3000:3000"
     environment:
