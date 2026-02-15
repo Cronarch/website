@@ -8,6 +8,8 @@ const members = [
 
 export default function Team() {
 	return (
+		// id is intentional for anchor navigation (#team)
+		// biome-ignore lint/correctness/useUniqueElementIds: section anchor for in-page links
 		<section id="team" className="bg-background @container py-32 scroll-mt-24">
 			<div className="mx-auto max-w-4xl px-6">
 				<div className="space-y-6">
