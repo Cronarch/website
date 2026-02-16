@@ -55,10 +55,10 @@ export default function Footer() {
 								href={item.href}
 								target="_blank"
 								rel="noopener noreferrer"
-								className="text-muted-foreground hover:text-foreground flex size-10 shrink-0 items-center justify-center rounded-full transition-colors"
+								className="text-muted-foreground hover:text-foreground flex size-8 shrink-0 items-center justify-center rounded-full transition-colors"
 								aria-label={item.label}
 							>
-								<item.icon className="size-5 shrink-0" />
+								<item.icon className="size-4 shrink-0" />
 							</a>
 						))}
 					</div>
