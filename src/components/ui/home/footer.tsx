@@ -18,15 +18,15 @@ const social = [
 
 export default function Footer() {
 	return (
-		<footer className="bg-background @container border-t py-12">
+		<footer className="bg-background border-t py-12">
 			<div className="mx-auto max-w-2xl px-6">
-				<div className="flex flex-col items-center text-center">
+				<div className="flex flex-col items-center gap-8 text-center">
 					<div className="flex w-full justify-center">
-						<Link to="/" href="/" className="flex items-center gap-2">
-							<Logo className="h-5" />
+						<Link to="/" href="/" className="inline-flex items-center gap-2">
+							<Logo className="h-6" />
 						</Link>
 					</div>
-					<nav className="mt-8 flex w-full flex-wrap justify-center gap-x-6 gap-y-2">
+					<nav className="flex w-full flex-wrap justify-center gap-x-8 gap-y-2">
 						{links.map((link) =>
 							link.mailto ? (
 								<a
@@ -48,20 +48,21 @@ export default function Footer() {
 							),
 						)}
 					</nav>
-					<div className="mt-8 flex w-full justify-center gap-4">
+					<div className="flex w-full justify-center gap-6">
 						{social.map((item) => (
-							<Link
-								to={item.href}
+							<a
 								key={item.label}
 								href={item.href}
-								className="text-muted-foreground hover:text-foreground flex size-8 items-center justify-center rounded-full transition-colors"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="text-muted-foreground hover:text-foreground flex size-10 shrink-0 items-center justify-center rounded-full transition-colors"
 								aria-label={item.label}
 							>
-								<item.icon className="size-4" />
-							</Link>
+								<item.icon className="size-5 shrink-0" />
+							</a>
 						))}
 					</div>
-					<p className="text-muted-foreground mt-8 w-full text-center text-sm">
+					<p className="text-muted-foreground w-full text-sm">
 						&copy; {2026} Cronarch.
 					</p>
 				</div>
