@@ -32,8 +32,7 @@ export default function Footer() {
 								<a
 									key={link.label}
 									href={link.href}
-									className="text-muted-foreground hover:text-foreground text-sm transition-colors"
-									style={{ marginLeft: "0.75rem", marginRight: "0.75rem" }}
+									className="text-muted-foreground hover:text-foreground mx-4 text-sm transition-colors"
 								>
 									{link.label}
 								</a>
@@ -42,8 +41,7 @@ export default function Footer() {
 									to={link.href}
 									key={link.label}
 									href={link.href}
-									className="text-muted-foreground hover:text-foreground text-sm transition-colors"
-									style={{ marginLeft: "0.75rem", marginRight: "0.75rem" }}
+									className="text-muted-foreground hover:text-foreground mx-4 text-sm transition-colors"
 								>
 									{link.label}
 								</Link>
