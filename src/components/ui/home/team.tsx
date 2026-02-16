@@ -3,6 +3,7 @@ const members = [
 		avatar: "/caleb-square.png",
 		name: "Caleb Brown",
 		role: "Founder, Software Engineer",
+		email: "caleb@cronarch.com",
 	},
 ];
 
@@ -34,10 +35,13 @@ export default function Team() {
 								/>
 							</div>
 
-							<div className="space-y-2">
-								<p className="text-foreground text-lg font-medium">
+							<div className="flex flex-col">
+								<p className="text-foreground text-lg font-medium whitespace-nowrap">
 									{member.name}
 								</p>
+								<a href={`mailto:${member.email}`} className="text-muted-foreground hover:text-foreground -mt-1.5 text-base">
+									{member.email}
+								</a>
 								<p className="text-muted-foreground text-base">{member.role}</p>
 							</div>
 						</div>

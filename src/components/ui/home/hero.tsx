@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { HeroHeader } from "./Header";
+import { HeroHeader } from "./header";
 
 export default function HeroSection() {
 	return (

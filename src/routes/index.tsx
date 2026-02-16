@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import Footer from "@/components/ui/home/footer";
 import HeroSection from "@/components/ui/home/hero";
 import Team from "@/components/ui/home/team";
 
@@ -13,6 +14,7 @@ function App() {
 					<Team />
 				</div>
 			</section>
+			<Footer />
 		</div>
 	);
 }
