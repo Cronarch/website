@@ -69,7 +69,7 @@ export const HeroHeader = () => {
 									isScrolled && "lg:opacity-0 lg:blur-[4px]",
 								)}
 							>
-								<Button asChild variant="ghost" size="sm">
+								{/* <Button asChild variant="ghost" size="sm">
 									<Link to="/">
 										<span>Login</span>
 									</Link>
@@ -78,7 +78,7 @@ export const HeroHeader = () => {
 									<Link to="/">
 										<span>Sign Up</span>
 									</Link>
-								</Button>
+								</Button> */}
 							</div>
 						</div>
 					</div>
@@ -165,10 +165,10 @@ const FloatingNavPill = ({ isScrolled }: { isScrolled: boolean }) => {
 					>
 						<NavItems />
 						<Button asChild size="sm" className="mx-2 gap-1 pr-1">
-							<Link to="/" hash="link">
-								<span>Get started</span>
+							<a href="mailto:caleb@cronarch.com">
+								<span>Contact Us</span>
 								<ChevronRight className="opacity-50" />
-							</Link>
+							</a>
 						</Button>
 					</motion.div>
 				)}

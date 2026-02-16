@@ -1,4 +1,3 @@
-import { Link } from "@tanstack/react-router";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HeroHeader } from "./header";
@@ -37,18 +36,18 @@ export default function HeroSection() {
 							</div>
 							<div className="mx-auto max-w-md text-center">
 								<h1 className="text-balance font-serif text-4xl font-medium sm:text-5xl">
-									Save time. Make money.
+									Need a website?
 								</h1>
-								<p className="text-muted-foreground mt-4 text-balance">
-									Cronarch is your all-in-one platform for automating your
-									business.
+								<p className="text-muted-foreground mt-4 text-balance whitespace-nowrap">
+									We've got your back. <br /> We'll build a website for you, and
+									you'll love it.
 								</p>
 
 								<Button asChild className="mt-6 pr-1.5">
-									<Link to="/" hash="link">
-										<span className="text-nowrap">Get Started</span>
+									<a href="mailto:caleb@cronarch.com">
+										<span className="text-nowrap">Contact Us</span>
 										<ChevronRight className="opacity-50" />
-									</Link>
+									</a>
 								</Button>
 							</div>
 						</div>

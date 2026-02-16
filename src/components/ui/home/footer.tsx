@@ -4,12 +4,16 @@ import { Logo } from "@/components/logo";
 
 const links = [
 	{ label: "About", href: "#" },
-	{ label: "Contact", href: "#" },
+	{ label: "Contact", href: "mailto:caleb@cronarch.com", mailto: true },
 ];
 
 const social = [
 	{ icon: Github, href: "https://github.com/cronarch", label: "GitHub" },
-	{ icon: Linkedin, href: "https://www.linkedin.com/company/cronarch", label: "LinkedIn" },
+	{
+		icon: Linkedin,
+		href: "https://www.linkedin.com/company/cronarch",
+		label: "LinkedIn",
+	},
 ];
 
 export default function Footer() {
@@ -23,16 +27,26 @@ export default function Footer() {
 						</Link>
 					</div>
 					<nav className="mt-8 flex w-full flex-wrap justify-center gap-x-6 gap-y-2">
-						{links.map((link) => (
-							<Link
-								to={link.href}
-								key={link.label}
-								href={link.href}
-								className="text-muted-foreground hover:text-foreground text-sm transition-colors"
-							>
-								{link.label}
-							</Link>
-						))}
+						{links.map((link) =>
+							link.mailto ? (
+								<a
+									key={link.label}
+									href={link.href}
+									className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+								>
+									{link.label}
+								</a>
+							) : (
+								<Link
+									to={link.href}
+									key={link.label}
+									href={link.href}
+									className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+								>
+									{link.label}
+								</Link>
+							),
+						)}
 					</nav>
 					<div className="mt-8 flex w-full justify-center gap-4">
 						{social.map((item) => (

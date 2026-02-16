@@ -39,7 +39,10 @@ export default function Team() {
 								<p className="text-foreground text-lg font-medium whitespace-nowrap">
 									{member.name}
 								</p>
-								<a href={`mailto:${member.email}`} className="text-muted-foreground hover:text-foreground -mt-1.5 text-base">
+								<a
+									href={`mailto:${member.email}`}
+									className="text-muted-foreground hover:text-foreground -mt-1.5 text-base"
+								>
 									{member.email}
 								</a>
 								<p className="text-muted-foreground text-base">{member.role}</p>
