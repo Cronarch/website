@@ -26,13 +26,14 @@ export default function Footer() {
 							<Logo className="h-6" />
 						</Link>
 					</div>
-					<nav className="flex w-full flex-wrap justify-center gap-y-2 [&>a]:mx-4">
+					<nav className="flex w-full flex-wrap justify-center gap-x-6 gap-y-2">
 						{links.map((link) =>
 							link.mailto ? (
 								<a
 									key={link.label}
 									href={link.href}
 									className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+									style={{ marginLeft: "0.75rem", marginRight: "0.75rem" }}
 								>
 									{link.label}
 								</a>
@@ -42,6 +43,7 @@ export default function Footer() {
 									key={link.label}
 									href={link.href}
 									className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+									style={{ marginLeft: "0.75rem", marginRight: "0.75rem" }}
 								>
 									{link.label}
 								</Link>
