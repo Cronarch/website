@@ -26,7 +26,7 @@ export default function Footer() {
 							<Logo className="h-6" />
 						</Link>
 					</div>
-					<nav className="flex w-full flex-wrap justify-center gap-x-8 gap-y-2">
+					<nav className="flex w-full flex-wrap justify-center gap-y-2 [&>a]:mx-4">
 						{links.map((link) =>
 							link.mailto ? (
 								<a
@@ -58,7 +58,7 @@ export default function Footer() {
 								className="text-muted-foreground hover:text-foreground flex size-8 shrink-0 items-center justify-center rounded-full transition-colors"
 								aria-label={item.label}
 							>
-								<item.icon className="size-4 shrink-0" />
+								<item.icon size={16} className="shrink-0" />
 							</a>
 						))}
 					</div>
