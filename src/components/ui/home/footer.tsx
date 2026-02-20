@@ -18,21 +18,21 @@ const social = [
 
 export default function Footer() {
 	return (
-		<footer className="bg-background border-t py-12">
+		<footer className="bg-background border-t py-6">
 			<div className="mx-auto max-w-2xl px-6">
-				<div className="flex flex-col items-center gap-8 text-center">
+				<div className="flex flex-col items-center gap-4 text-center">
 					<div className="flex w-full justify-center">
 						<Link to="/" href="/" className="inline-flex items-center gap-2">
 							<Logo className="h-6" />
 						</Link>
 					</div>
-					<nav className="flex w-full flex-wrap justify-center gap-x-6 gap-y-2">
+					<nav className="flex w-full flex-wrap justify-center gap-x-2 gap-y-2">
 						{links.map((link) =>
 							link.mailto ? (
 								<a
 									key={link.label}
 									href={link.href}
-									className="text-muted-foreground hover:text-foreground mx-4 text-sm transition-colors"
+									className="text-muted-foreground hover:text-foreground text-sm transition-colors"
 								>
 									{link.label}
 								</a>
@@ -41,14 +41,14 @@ export default function Footer() {
 									to={link.href}
 									key={link.label}
 									href={link.href}
-									className="text-muted-foreground hover:text-foreground mx-4 text-sm transition-colors"
+									className="text-muted-foreground hover:text-foreground text-sm transition-colors"
 								>
 									{link.label}
 								</Link>
 							),
 						)}
 					</nav>
-					<div className="flex w-full justify-center gap-6">
+					<div className="flex w-full justify-center gap-2">
 						{social.map((item) => (
 							<a
 								key={item.label}
